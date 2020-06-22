@@ -11,15 +11,19 @@ title: Home
     <div class = "post-info">
         <span>
             <i class="far fa-calendar" aria-hidden="true"></i>
-            <time datetime="{{ post.date | date_to_xmlschema }}" class="by-line">{{ post.date | date_to_string }}</time> - <i class="far fa-clock"></i> 
-            {% include reading_time.html %}
+            <time datetime="{{ post.date | date_to_xmlschema }}" class="by-line">{{ post.date | date_to_string }}</time> 
         </span>
     </div>
     {% endif %}
 
-    {% if post.image and site.data.settings.featured-img.active%}
+    {% if site.data.settings.featured-img.active %}
     <div class = "featured-img-container">
+    {% if post.image %}
         <a href="{{ post.url | relative_url }}"><img src="{{ post.image | relative_url }}"/></a>
+    {% endif %}
+    {% if post.gif %}
+        {% include gif.html file = post.gif %}
+    {% endif %}
     </div>
     {% endif %}
 
@@ -29,7 +33,7 @@ title: Home
         {% else %}
             {{ post.content | strip_html | truncatewords:50 }}
         {% endif %}
-        <span class = "continue-reading"><a href="{{ post.url | relative_url }}">Continue reading...</a></span>
+        <span class = "continue-reading"><a href="{{ post.url | relative_url }}">继续阅读...</a></span>
     </p> 
 </div>
 {% endfor %}
